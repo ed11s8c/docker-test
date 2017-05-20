@@ -1,5 +1,5 @@
 # Author Steven
-FROM Docker:latest
+FROM docker:latest
  
 RUN apk update
 RUN apk add git
