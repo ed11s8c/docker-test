@@ -10,9 +10,3 @@ jobs:
       script:
       - docker build -t docker-git .
       - docker run docker-git
-    - stage: release docker image
-      branches:
-        only:
-        - master      
-      script:
-      - curl -H "Content-Type: application/json" --data '{"build": true}' -X POST https://registry.hub.docker.com/u/stevencooney/docker-test/trigger/$DOCKER_HUB_TOKEN
