@@ -1,0 +1,4 @@
+{
+    "source_type": "Tag",
+    "source_name": "$TRAVIS_TAG"
+}

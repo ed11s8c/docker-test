@@ -14,6 +14,12 @@ jobs:
           script:
           - docker build -t docker-git .
           - docker run docker-git
+          on:
+              tags: false
         - stage: release
+          before_script:
+          - envsubst < tag-template.json > tag-body.json
           script:
           - ./release.sh
+          on:
+            tags: false
