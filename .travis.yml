@@ -15,5 +15,8 @@ jobs:
           - docker build -t docker-git .
           - docker run docker-git
         - stage: release
+          branches:
+              only:
+              - master
           script:
           - docker ps -a
