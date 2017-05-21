@@ -6,19 +6,18 @@ services:
   - docker
 
 before_install:
-- docker --version
+  - docker --version
 
-- stage: build
-  script:
+script:
   - docker build -t docker-git .
   - docker run docker-git
 
-- deploy:
-  provider: script
-  before_script:
-  - envsubst < ci-resources/tag-template.json > tag-body.json
-  script:
-  - 'curl -X POST -H "Content-Type: application/json" -d ''{"build": true}'' "https://registry.hub.docker.com/u/stevencooney/docker-test/trigger/$DOCKER_HUB_TOKEN/"'
-  - 'curl -X POST -H "Content-Type: application/json" -d ''@./tag-body.json'' "https://registry.hub.docker.com/u/stevencooney/docker-test/trigger/$DOCKER_HUB_TOKEN/"'
-  on:
-    tags: true
+deploy:
+  - provider: script
+    before_script:
+      - envsubst < ci-resources/tag-template.json > tag-body.json
+    script:
+      - 'curl -X POST -H "Content-Type: application/json" -d ''{"build": true}'' "https://registry.hub.docker.com/u/stevencooney/docker-test/trigger/$DOCKER_HUB_TOKEN/"'
+      - 'curl -X POST -H "Content-Type: application/json" -d ''@./tag-body.json'' "https://registry.hub.docker.com/u/stevencooney/docker-test/trigger/$DOCKER_HUB_TOKEN/"'
+    on:
+      tags: true
