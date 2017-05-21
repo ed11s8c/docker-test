@@ -1,12 +1,19 @@
+sudo: required
+
+language: ruby
+
 services:
   - docker
 
 before_install:
-- docker version
+- docker --version
 
 jobs:
-  include:
-    - stage: build docker image
-      script:
-      - docker build -t docker-git .
-      - docker run docker-git
+    include:
+        - stage: build
+          script:
+          - docker build -t docker-git .
+          - docker run docker-git
+        - stage: release
+          script:
+          - ./release.sh
