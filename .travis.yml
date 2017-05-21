@@ -13,7 +13,7 @@ before_install:
   - docker build -t docker-git .
   - docker run docker-git
 
-deploy:
+- deploy:
   provider: script
   before_script:
   - envsubst < ci-resources/tag-template.json > tag-body.json
