@@ -1,7 +1,5 @@
 #!/bin/bash
 set -x #echo on
 
-if [[ $TRAVIS_BRANCH == 'master' ]]; then
-  curl -H "Content-Type: application/json" --data '{"build": true}' -X POST https://registry.hub.docker.com/u/stevencooney/docker-test/trigger/$DOCKER_HUB_TOKEN/
-  curl -H "Content-Type: application/json" --data '@./tag-body.json' -X POST https://registry.hub.docker.com/u/stevencooney/docker-test/trigger/$DOCKER_HUB_TOKEN/
-fi
+envsubst < ci-resources/tag-template.json > tag-body.json
+curl -X POST -H "Content-Type: application/json" -d '@./tag-body.json' "https://registry.hub.docker.com/u/stevencooney/docker-test/trigger/$DOCKER_HUB_TOKEN/"

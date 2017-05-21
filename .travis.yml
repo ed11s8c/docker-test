@@ -14,6 +14,6 @@ script:
 
 deploy:
   - provider: script
-    script: ./ci-resources/deploy.sh
+    script: ./ci-resources/release.sh
     on:
       tags: true
